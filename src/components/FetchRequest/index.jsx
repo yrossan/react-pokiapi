@@ -1,30 +1,32 @@
 import React, { useEffect, useState } from "react";
 
 
-const FetchRequest = ({inputText}) => {
+const FetchRequest = ({pokemonSearch}) => {
     // console.log("inputText is: ", inputText)
     const [pokemon, setPokemon] = useState([])
 
     useEffect(() => {
         async function getPokemon(name){
             try {
-                const result = await fetch("https://pokeapi.co/api/v2/pokemon/:name")
+                console.log(`Searching for ${pokemonSearch}`)
+                const result = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
                 const data = await result.json()
+                console.log(`Data ${data}`)
                 setPokemon(data)
             } catch (error) {
                 console.log(error.message)
             }
         }
-        getPokemon({inputText})
+        getPokemon(pokemonSearch)
     },[])
 
   return (
     <>
-    <h2>{inputText}</h2>
+    <h2>{pokemon.name}</h2>
     {
-        pokemon.length
-        ? data
-        : "No Pokemon :("
+        pokemon.name
+        ? <p>{pokemon.name}</p>
+        : <p>Loading Pokemon...</p>
     }
     
     </>
