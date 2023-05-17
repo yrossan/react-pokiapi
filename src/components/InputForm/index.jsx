@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FetchRequest from "../FetchRequest";
 
 
 const InputForm = () => {
     const [inputText, setInputText] = useState("")
     const [submittedText, setSubmittedText] = useState("")
-    let sendUserInput
+    // let sendUserInput
+
 
     function updateInput(e) {
         setInputText(e.target.value) //Updating the state of input text to what is being entered
@@ -17,12 +18,13 @@ const InputForm = () => {
         // console.log("Submit has been pressed")
         // console.log("Value is: ", inputText)
         setSubmittedText(inputText)
+        setInputText('')
         
     }
 
-    if (submittedText !== ""){
-        sendUserInput=<FetchRequest inputText={submittedText}/>
-    }
+    // if (submittedText !== ""){
+    //     sendUserInput=<FetchRequest inputText={submittedText}/>
+    // }
 
     
     return (
@@ -32,7 +34,8 @@ const InputForm = () => {
             <input type="text" value={inputText} onChange={updateInput}></input>
             <input type="submit" ></input>
         </form>
-        {sendUserInput}
+        {submittedText !== '' ? <FetchRequest pokemonSearch={submittedText} /> : <p>No pokemon yet, please submit a pokemon!</p>}
+        {/* {sendUserInput} */}
         </>
     )
 }
